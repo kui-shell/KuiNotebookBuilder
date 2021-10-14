@@ -19,9 +19,7 @@ import React from 'react'
 import { inBrowser } from '@kui-shell/core'
 import { Kui, KuiProps, ContextWidgets, MeterWidgets, CurrentWorkingDirectory, SpaceFiller } from '@kui-shell/plugin-client-common'
 
-import { CurrentContext, CurrentNamespace } from '@kui-shell/plugin-kubectl/components'
-import { ProxyOfflineIndicator } from '@kui-shell/plugin-proxy-support'
-import { Search } from '@kui-shell/plugin-electron-components'
+// import { CurrentContext, CurrentNamespace } from '@kui-shell/plugin-kubectl/components'
 
 import { productName } from '@kui-shell/client/config.d/name.json'
 import autoplay from '@kui-shell/client/config.d/autoplay.json'
@@ -34,11 +32,6 @@ import autoplay from '@kui-shell/client/config.d/autoplay.json'
  */
 // const welcomeBit = 'plugin-client-default.welcome-was-dismissed'
 
-/**
- * Format our body, with extra status stripe widgets
- *   - <ProxyOfflineIndicator />
- *
- */
 export default function renderMain(props: KuiProps) {
   return (
     <Kui
@@ -46,7 +39,6 @@ export default function renderMain(props: KuiProps) {
       productName={productName}
       lightweightTables
       {...props}
-      toplevel={!inBrowser() && <Search />}
       commandLine={
         props.commandLine || autoplay.length === 0 ? [] : [
           'replay',
@@ -61,7 +53,6 @@ export default function renderMain(props: KuiProps) {
       <SpaceFiller />
 
       <MeterWidgets>
-        {inBrowser() && <ProxyOfflineIndicator />}
       </MeterWidgets>
     </Kui>
   )
