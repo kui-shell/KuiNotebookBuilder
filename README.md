@@ -2,9 +2,7 @@
 
 This repository helps you to build a set of webpack bundles that can
 host a fixed set of Kui Notebooks. The build is dockerized, so you
-don't even need to clone this template repository. If offers some
-convenience scripts, and examples, which may help you or hinder you,
-depending on your needs.
+don't even need to clone this template repository to get started.
 
 ## Quick Start (no need to clone this repo)
 
