@@ -24,10 +24,10 @@
   "author": "@starpit",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@kui-shell/builder": "^10.7.6",
-    "@kui-shell/proxy": "^10.7.6",
-    "@kui-shell/react": "^10.7.6",
-    "@kui-shell/webpack": "^10.7.6",
+    "@kui-shell/builder": "10.7.0-dev-20211015-122841",
+    "@kui-shell/proxy": "10.7.0-dev-20211015-122841",
+    "@kui-shell/react": "10.7.0-dev-20211015-122841",
+    "@kui-shell/webpack": "10.7.0-dev-20211015-122841",
     "@types/node": "14.11.8",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",
@@ -36,12 +36,12 @@
   },
   "dependencies": {
     "@kui-shell/client": "file:./plugins/plugin-client-notebooks",
-    "@kui-shell/core": "^10.7.6",
-    "@kui-shell/plugin-bash-like": "^10.7.6",
-    "@kui-shell/plugin-carbon-themes": "^10.7.6",
-    "@kui-shell/plugin-client-common": "^10.7.6",
-    "@kui-shell/plugin-core-support": "^10.7.6",
-    "@kui-shell/plugin-kubectl": "^10.7.6",
-    "@kui-shell/plugin-patternfly4-themes": "^10.7.6"
+    "@kui-shell/core": "10.7.0-dev-20211015-122841",
+    "@kui-shell/plugin-bash-like": "10.7.0-dev-20211015-122841",
+    "@kui-shell/plugin-carbon-themes": "10.7.0-dev-20211015-122841",
+    "@kui-shell/plugin-client-common": "10.7.0-dev-20211015-122841",
+    "@kui-shell/plugin-core-support": "10.7.0-dev-20211015-122841",
+    "@kui-shell/plugin-kubectl": "10.7.0-dev-20211015-122841",
+    "@kui-shell/plugin-patternfly4-themes": "10.7.0-dev-20211015-122841"
   }
 }

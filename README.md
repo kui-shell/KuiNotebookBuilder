@@ -35,6 +35,13 @@ clone the repository, this process is slightly simplified:
 ./build.sh /tmp/bundles $PWD/config.d offline
 ```
 
+## Live Watching
+
+If you wish to to live development, use the `watch.sh` script in place
+of `build.sh`. Once the watcher is up, you can visit
+`http://localhost:9080`. Changes to your notebooks or to your config.d
+entries should be reflected on that web page.
+
 ## `config.d`: Specifying your list of Notebooks, etc.
 
 You may find an example configuration directory [here](config.d). The

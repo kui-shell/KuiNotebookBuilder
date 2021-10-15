@@ -37,33 +37,47 @@ export MODE=${MODE-production}
 #    export KUI_BUILDDIR=/bundles
 #fi
 
-if [ ! -d /config.d ]; then
-    echo "Perhaps you forgot to mount your config on /config?"
-    exit 1
-fi
+#if [ ! -d /config.d ]; then
+#    echo "Perhaps you forgot to mount your config on /config?"
+#    exit 1
+#fi
 
-if [ ! -d /config.d/notebooks ]; then
-    echo "Your config includes no notebooks"
-    exit 1
-fi
+#if [ ! -d /config.d/notebooks ]; then
+#    echo "Your config includes no notebooks"
+#    exit 1
+#fi
 
 # this is just a convenience variable, nothing deep here
 CLIENT=node_modules/@kui-shell/client
 
-# copy in the build-time notebooks and configuration
-cp /config.d/*.json $CLIENT/config.d
-cp /config.d/notebooks/* $CLIENT/notebooks
+# copy over any default configs that the user's config.d overrides did not provide
+for confPath in /tmp/config.d/*; do
+    if [ "$confPath" = "*" ]; then
+        # find the bash magic to avoid this; some noglob config
+        continue
+    fi
 
-# and add then to the autoplay.json
-ls /config.d/notebooks | awk 'BEGIN { printf "["} {if (FNR > 1) printf ","; printf "\"" $1 "\""} END { printf "]" }' > $CLIENT/config.d/autoplay.json
-
-echo "AUTOPLAY: $(cat $CLIENT/config.d/autoplay.json)"
-
+    conf=$(basename $confPath)
+    if [ -e /tmp/config.d/$conf ]; then
+        echo "Overriding config $conf"
+        rm $CLIENT/config.d/$conf
+    fi
+    (cd $CLIENT/config.d && ln -s $confPath)
+done
+    
 # were we were asked to build an offline service?
 if [ -n "$OFFLINE" ]; then
-    mv $CLIENT/config.d/proxy-offline.json $CLIENT/config.d/proxy.json
-    mv $CLIENT/config.d/client-offline.json $CLIENT/config.d/client.json
+    cp $CLIENT/config.d/proxy-offline.json $CLIENT/config.d/proxy.json
+    cp $CLIENT/config.d/client-offline.json $CLIENT/config.d/client.json
 fi
 
+# and add then to the autoplay.json
+ls $CLIENT/notebooks | awk 'BEGIN { printf "["} {if (FNR > 1) printf ","; printf "\"" $1 "\""} END { printf "]" }' > $CLIENT/config.d/autoplay.json
+echo "AUTOPLAY: $(cat $CLIENT/config.d/autoplay.json)"
+
 # now build the webpack bundles
-npx kui-build-webpack
+if [ "$WATCH" = "true" ]; then
+    npx kui-watch-webpack
+else
+    npx kui-build-webpack
+fi
