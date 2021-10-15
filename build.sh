@@ -24,7 +24,8 @@
 #
 # Required Parameters
 #   - bundleTargetDir: The webpack bundles, index.html, etc. will be placed here
-#   - configDir: Your configuration options, which includes a directory of notebooks.
+#   - notebooksDir: A directory of Kui notebooks.
+#   - configDir: Your optional configuration overrides, such as a product name
 #
 # Notes:
 #   1) all directories must be absolute paths.
@@ -35,9 +36,10 @@ set -e
 set -o pipefail
 
 BUNDLE_TARGET_DIR="$1"
-CONFIG_DIR="$2"
+NOTEBOOKS_DIR="$2"
+CONFIG_DIR="$3"
 
-if [ "$3" = "offline" ]; then
+if [ "$4" = "offline" ]; then
     OFFLINE=true
 else
     OFFLINE=false
@@ -51,7 +53,13 @@ elif [ ! -d "$BUNDLE_TARGET_DIR" ]; then
 fi
 
 docker run --rm \
+       -e WATCH=$WATCH \
+       -e WATCH_ARGS=$WATCH_ARGS \
        -e OFFLINE=$OFFLINE \
+       -e MODE=${MODE-production} \
        -v "$BUNDLE_TARGET_DIR":/kui/dist/webpack \
-       -v "$CONFIG_DIR":/config.d \
+       -v "$NOTEBOOKS_DIR":/kui/node_modules/@kui-shell/client/notebooks \
+       -v "$CONFIG_DIR":/tmp/config.d \
+       -p 9080:9080 \
+       --name KuiNotebookBuilder \
        quay.io/kuishell/notebook-builder

@@ -17,6 +17,7 @@
 FROM node:12-bullseye-slim
 
 WORKDIR /kui
+EXPOSE 9080
 
 ## preesed tzdata, update package index, upgrade packages and install needed software
 ENV DEBIAN_FRONTEND=noninteractive
