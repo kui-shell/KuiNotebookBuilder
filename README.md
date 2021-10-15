@@ -28,7 +28,10 @@ You will need to specify three inputs:
    set `OFFLINE=true`. (Coming soon: quick builds for a hosted
    client/server architecture) 
 
-If you clone the repository, then this process is slightly simplified:
+A suggested usage is to instantiate this template repository once per
+desired web application. This lets you store the `config.d` elements
+(application name, set of notebooks) on a per-app basis. Also, if you
+clone the repository, this process is slightly simplified:
 
 ```sh
 ./build.sh /tmp/bundles $PWD/config.d offline
