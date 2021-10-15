@@ -9,6 +9,7 @@ don't even need to clone this template repository to get started.
 ```sh
 docker run --rm \
        -v "$BUNDLE_TARGET_DIR":/kui/dist/webpack \
+       -v "$NOTEBOOKS_DIR":/config.d \
        -v "$CONFIG_DIR":/config.d \
        -e OFFLINE=$OFFLINE \
        quay.io/kuishell/notebook-builder
@@ -18,9 +19,10 @@ You will need to specify three inputs:
 
 1. `$BUNDLE_TARGET_DIR`: absolute path to the target directory for the
    generated web app (index.html, etc.).
-2. `$CONFIG_DIR`: absolute path to your notebooks and other config
-   choices. Populate `config.d/notebooks` with your [Kui
+2. `$NOTEBOOKS_DIR`: absolute path to your [Kui
    Notebooks](#authoring-notebooks).
+2. `$CONFIG_DIR`: absolute path to your config choices, such as the
+   name of the application.
 3. `OFFLINE=true|false`. If you want a [static single page
    application](https://en.wikipedia.org/wiki/Single-page_application),
    set `OFFLINE=true`. (Coming soon: quick builds for a hosted
@@ -32,7 +34,7 @@ desired web application. This lets you store the `config.d` elements
 clone the repository, this process is slightly simplified:
 
 ```sh
-./build.sh /tmp/bundles $PWD/config.d offline
+./build.sh /tmp/bundles $PWD/notebooks $PWD/config.d offline
 ```
 
 ## Live Watching
@@ -42,15 +44,11 @@ of `build.sh`. Once the watcher is up, you can visit
 `http://localhost:9080`. Changes to your notebooks or to your config.d
 entries should be reflected on that web page.
 
-## `config.d`: Specifying your list of Notebooks, etc.
+## `config.d`: Specifying your application name, etc.
 
-You may find an example configuration directory [here](config.d). The
-minimum requirement for this directory is that it contain a
-subdirectory [config.d/notebooks](config.d/notebooks). This directory
-contains a set of Kui Notebooks that will be presented in your client.
-
-You may set the application title and favicon as well. See the
-[example config](config.d) for guidance.
+You may find an example configuration directory [here](config.d). You
+may set the application title and favicon here. See the [example
+config](config.d) for guidance.
 
 ## Authoring Notebooks
 
